@@ -1,60 +1,33 @@
-package com.ashwin.banking.entity;
+package com.ashwin.banking.dto;
 
 import com.ashwin.banking.enums.CustomerStatus;
-import jakarta.persistence.*;
-import org.hibernate.annotations.CreationTimestamp;
-
+import jakarta.persistence.Column;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "customers")
-public class Customer {
+public class CustomerResponse {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(unique = true,nullable = false)
     private String customerId;
 
-    @Column(nullable = false)
     private String firstName;
 
     private String lastName;
 
-    @Column(unique = true,nullable = false)
     private String email;
 
-    @Column(unique = true,nullable = false)
     private String mobileNumber;
 
     private LocalDate dateOfBirth;
 
     private String address;
 
-    @Column(unique = true)
     private String panNumber;
 
-    @Column(unique = true)
     private String aadhaarNumber;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
     private CustomerStatus status;
-
-    @CreationTimestamp
-    @Column(nullable = false,updatable = false)
-    private LocalDateTime createdAt;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getCustomerId() {
         return customerId;
@@ -136,11 +109,19 @@ public class Customer {
         this.status = status;
     }
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
+    @Override
+    public String toString() {
+        return "CustomerResponse{" +
+                "customerId='" + customerId + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", mobileNumber='" + mobileNumber + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
+                ", address='" + address + '\'' +
+                ", panNumber='" + panNumber + '\'' +
+                ", aadhaarNumber='" + aadhaarNumber + '\'' +
+                ", status=" + status +
+                '}';
     }
 }

@@ -1,10 +1,10 @@
 package com.ashwin.banking.service;
 
-import com.ashwin.banking.CustomerStatus;
+import com.ashwin.banking.dto.*;
+import com.ashwin.banking.enums.CustomerStatus;
 import com.ashwin.banking.assembler.CustomerAssembler;
-import com.ashwin.banking.dto.CustomerCreateRequest;
-import com.ashwin.banking.dto.CustomerCreateResponse;
 import com.ashwin.banking.entity.Customer;
+import com.ashwin.banking.exception.CustomerNotFoundException;
 import com.ashwin.banking.repository.ICustomerIdGenerator;
 import com.ashwin.banking.repository.ICustomerRepository;
 import org.springframework.stereotype.Service;
@@ -40,4 +40,28 @@ public class CustomerService implements ICustomerService{
 
         return customerCreateResponse;
     }
+
+    @Override
+    public CustomerResponse fetchCustomer(String customerId) {
+
+        Customer customer = customerRepository.findByCustomerId(customerId)
+                .orElseThrow(() -> new CustomerNotFoundException("Customer with ID " + customerId + " not found!"));
+        CustomerResponse customerResponse = customerAssembler.toCustomerResponse(customer);
+        return customerResponse;
+    }
+
+    @Override
+    public CustomerUpdateResponse updateCustomer(String customerId,CustomerUpdateRequest customerUpdateRequest) {
+
+        CustomerUpdateResponse customerUpdateResponse = new CustomerUpdateResponse();
+        Customer customer = customerRepository.findByCustomerId(customerId)
+                .orElseThrow(() -> new CustomerNotFoundException("Customer with ID " + customerId + " not found!"));
+        customer = customerAssembler.updateCustomerFromRequest(customerUpdateRequest,customer);
+        customerRepository.save(customer);
+        customerUpdateResponse.setCustomerId(customerId);
+        customerUpdateResponse.setMessage("Customer with ID " + customerId + " updated!");
+        return customerUpdateResponse;
+    }
+
+
 }

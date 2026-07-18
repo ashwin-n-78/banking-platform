@@ -1,10 +1,10 @@
 package com.ashwin.banking.dto;
 
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 
-import java.time.LocalDate;
-
-public class CustomerCreateRequest {
+public class CustomerUpdateRequest {
 
     @NotBlank(message = "First name is mandatory")
     private String firstName;
@@ -20,18 +20,7 @@ public class CustomerCreateRequest {
     @Pattern(regexp = "^\\d{10}$")
     private String mobileNumber;
 
-    @NotNull
-    @Past
-    private LocalDate dateOfBirth;
-
     private String address;
-
-    @NotBlank(message = "PAN is mandatory")
-    private String panNumber;
-
-    @NotBlank(message = "Aadhaar number is mandatory")
-    @Pattern(regexp = "^\\d{12}$")
-    private String aadhaarNumber;
 
     public String getFirstName() {
         return firstName;
@@ -65,35 +54,11 @@ public class CustomerCreateRequest {
         this.mobileNumber = mobileNumber;
     }
 
-    public LocalDate getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirth(LocalDate datOfBirth) {
-        this.dateOfBirth = datOfBirth;
-    }
-
     public String getAddress() {
         return address;
     }
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public String getPanNumber() {
-        return panNumber;
-    }
-
-    public void setPanNumber(String panNumber) {
-        this.panNumber = panNumber;
-    }
-
-    public String getAadhaarNumber() {
-        return aadhaarNumber;
-    }
-
-    public void setAadhaarNumber(String aadhaarNumber) {
-        this.aadhaarNumber = aadhaarNumber;
     }
 }

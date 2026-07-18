@@ -1,7 +1,6 @@
 package com.ashwin.banking.assembler;
 
-import com.ashwin.banking.dto.CustomerCreateRequest;
-import com.ashwin.banking.dto.CustomerCreateResponse;
+import com.ashwin.banking.dto.*;
 import com.ashwin.banking.entity.Customer;
 import org.springframework.stereotype.Component;
 
@@ -27,5 +26,33 @@ public class CustomerAssembler {
         customerCreateResponse.setCustomerId(customer.getCustomerId());
         customerCreateResponse.setMessage(message);
         return customerCreateResponse;
+    }
+
+    public CustomerResponse toCustomerResponse(Customer customer){
+
+        CustomerResponse customerResponse = new CustomerResponse();
+        customerResponse.setCustomerId(customer.getCustomerId());
+        customerResponse.setFirstName(customer.getFirstName());
+        customerResponse.setLastName(customer.getLastName());
+        customerResponse.setEmail(customer.getEmail());
+        customerResponse.setDateOfBirth(customer.getDateOfBirth());
+        customerResponse.setMobileNumber(customer.getMobileNumber());
+        customerResponse.setAddress(customer.getAddress());
+        customerResponse.setPanNumber(customer.getPanNumber());
+        customerResponse.setAadhaarNumber(customer.getAadhaarNumber());
+        customerResponse.setStatus(customer.getStatus());
+
+        return customerResponse;
+    }
+
+    public Customer updateCustomerFromRequest(CustomerUpdateRequest customerUpdateRequest, Customer customer){
+
+        customer.setFirstName(customerUpdateRequest.getFirstName());
+        customer.setLastName(customerUpdateRequest.getLastName());
+        customer.setEmail(customerUpdateRequest.getEmail());
+        customer.setMobileNumber(customerUpdateRequest.getMobileNumber());
+        customer.setAddress(customerUpdateRequest.getAddress());
+
+        return customer;
     }
 }

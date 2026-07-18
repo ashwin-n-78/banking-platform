@@ -1,4 +1,4 @@
-package com.ashwin.banking;
+package com.ashwin.banking.enums;
 
 public enum CustomerStatus {
 
